@@ -5,14 +5,14 @@
   "author": "Inovus Labs",
   "type": "module",
   "main": "dist/core.min.js",
-  "module": "entry.glob.js",
+  "module": "entry.core.js",
   "types": "index.d.ts",
   "exports": {
     ".": {
-      "import": "./entry.glob.js",
+      "import": "./entry.core.js",
       "require": "./dist/core.min.js",
       "types": "./index.d.ts",
-      "development": "./entry.glob.js"
+      "development": "./entry.core.js"
     }
   },
   "repository": {
@@ -24,9 +24,12 @@
   },
   "homepage": "https://github.com/inovus-labs/festive-js#readme",
   "scripts": {
-    "build": "npm run build:dev && npm run build:min",
-    "build:dev": "vite build",
-    "build:min": "BUILD_MODE=min vite build",
+    "build": "npm run build:core && npm run build:themes && npm run copy:manifest",
+    "build:core": "npm run build:core:dev && npm run build:core:min",
+    "build:core:dev": "vite build",
+    "build:core:min": "BUILD_MODE=min vite build",
+    "build:themes": "node build-themes.mjs",
+    "copy:manifest": "cp themes.manifest.json dist/",
     "dev": "vite",
     "preview": "vite preview",
     "build:npm": "./npm-build.sh"
@@ -43,13 +46,14 @@
   "unpkg": "dist/core.min.js",
   "jsdelivr": "dist/core.min.js",
   "files": [
-    "dist/core.js",
-    "dist/core.min.js",
+    "dist/",
+    "entry.core.js",
     "index.d.ts",
     "README.md",
     "LICENSE"
   ],
   "devDependencies": {
+    "terser": "^5.44.0",
     "vite": "^4.4.9"
   }
 }
