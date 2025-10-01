@@ -55,7 +55,7 @@ export default defineConfig({
     minify: isMinified ? "esbuild" : false,
     sourcemap: false,
     lib: {
-      entry: "entry.core.js",
+      entry: "entry.glob.js",
       name: "Festive",
       fileName: () => isMinified ? "core.min.js" : "core.js",
       formats: ["iife"]
@@ -64,9 +64,8 @@ export default defineConfig({
       treeshake: true,
       output: {
         banner: isMinified ? "" : banner,
-        extend: false,
+        extend: true,
         compact: isMinified,
-        exports: 'default',
         generatedCode: {
           constBindings: true
         }
